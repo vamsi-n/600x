@@ -25,7 +25,7 @@ def calculateFixedPayoffAmount(balance, annualInterestRate):
 
     print 'balance = ' + str(balance)
     print 'annualInterestRate = ' + str(annualInterestRate)
-    minimumMonthlyPayment = 100.0
+    minimumMonthlyPayment = 10.0
 
     original_balance = balance
 
@@ -43,4 +43,36 @@ def calculateFixedPayoffAmount(balance, annualInterestRate):
 
     print('Lowest Payment : ' + str(minimumMonthlyPayment))
 
-calculateFixedPayoffAmount(3926, 0.2)
+def calculateFixedPayoffAmtBisection(balance, annualInterestRate):
+    print 'balance = ' + str(balance)
+    print 'annualInterestRate = ' + str(annualInterestRate)
+
+    original_balance = balance
+    lower_bound = balance / 12.0
+    upper_bound = (balance * ((1 + annualInterestRate / 12) ** 12))/ 12.0
+
+    print round(lower_bound, 2)
+    print round(upper_bound, 2)
+
+    while True:
+
+        monthlyPayment = round((lower_bound + upper_bound) / 2.0, 2)
+
+        balance = original_balance
+
+        for i in range(1, 13):
+            interest = (annualInterestRate/12.0) * (balance - monthlyPayment)
+            balance += (round(interest, 2) - round(monthlyPayment, 2))
+
+        print 'monthly payment : ' + str(monthlyPayment) + ' balance : ' + str(balance)
+        if -0.2 <= balance <= 0.2:
+            break
+        elif balance > 0:
+            lower_bound = monthlyPayment
+        elif balance < 0:
+            upper_bound = monthlyPayment
+
+
+
+
+calculateFixedPayoffAmtBisection(320000, 0.2)
