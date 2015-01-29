@@ -23,7 +23,7 @@ def radiationExposure(start, stop, step):
         print 'start : ' + str(start)
         print 'f(start) : ' + str(f(start))
 
-        result += f(start)
+        result += f(start) * step
         start += step
 
     return result
