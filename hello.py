@@ -63,4 +63,6 @@ from ps3_hangman import *
 
 secretWord = 'apple'
 lettersGuessed = ['z', 'i', 'z', 'l', 'r', 'a']
-getAvailableLetters(['z', 'i', 'z', 'l', 'r', 'a'])
+
+print isWordGuessed('zzz', 'Z')
+
