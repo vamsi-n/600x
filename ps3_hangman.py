@@ -53,8 +53,21 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    # FILL IN YOUR CODE HERE...
+    guess = False
+    numberOfLettersGuessed = len(lettersGuessed)
 
+    print 'numberOfLettersGuessed : ' + str(numberOfLettersGuessed)
+
+    if numberOfLettersGuessed == 0:
+        return False
+    count = 0
+    for i in lettersGuessed:
+        count += secretWord.count(i)
+        if count == len(secretWord):
+            guess = True
+            break
+
+    return guess
 
 
 def getGuessedWord(secretWord, lettersGuessed):
@@ -64,8 +77,17 @@ def getGuessedWord(secretWord, lettersGuessed):
     returns: string, comprised of letters and underscores that represents
       what letters in secretWord have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE...
 
+    guessedWord = '\''
+
+    for i in secretWord:
+        if i in lettersGuessed:
+            guessedWord += i
+        else:
+            guessedWord += ' _ '
+    guessedWord += '\''
+
+    return guessedWord
 
 
 def getAvailableLetters(lettersGuessed):
@@ -74,8 +96,9 @@ def getAvailableLetters(lettersGuessed):
     returns: string, comprised of letters that represents what letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE...
-    
+
+    for i in list(string.ascii_lowercase):
+        print i
 
 def hangman(secretWord):
     '''

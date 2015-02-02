@@ -1,5 +1,3 @@
-print 'hello, world!'
-
 
 def recurPower(base, exp):
     '''
@@ -61,4 +59,8 @@ def gcdRecur(a, b):
         return gcdRecur(b, a%b)
 
 
-print gcdRecur(15,9)
+from ps3_hangman import *
+
+secretWord = 'apple'
+lettersGuessed = ['z', 'i', 'z', 'l', 'r', 'a']
+getAvailableLetters(['z', 'i', 'z', 'l', 'r', 'a'])
