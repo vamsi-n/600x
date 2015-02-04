@@ -76,9 +76,19 @@ def getWordScore(word, n):
     n: integer (HAND_SIZE; i.e., hand size required for additional points)
     returns: int >= 0
     """
-    # TO DO ... <-- Remove this comment when you code this function
+    word_length = len(word)
+    score = 0
+
+    for i in word:
+        score += SCRABBLE_LETTER_VALUES[i]
+
+    score *= len(word)
+
+    if word_length == n:
+        score += 50
 
 
+    return score
 
 #
 # Problem #2: Make sure you understand how this function works and what it does!
@@ -149,7 +159,12 @@ def updateHand(hand, word):
     """
     # TO DO ... <-- Remove this comment when you code this function
 
+    updatedHand = hand.copy()
 
+    for i in word:
+        updatedHand[i] -= 1
+
+    return updatedHand
 
 #
 # Problem #3: Test word validity
@@ -166,7 +181,20 @@ def isValidWord(word, hand, wordList):
     wordList: list of lowercase strings
     """
     # TO DO ... <-- Remove this comment when you code this function
+    validWord = True
 
+    if word in wordList:
+
+        wordDict = getFrequencyDict(word)
+
+        for x in wordDict.keys():
+            if x not in hand or wordDict[x] > hand[x]:
+                validWord = False
+
+    else:
+        validWord = False
+
+    return validWord
 
 #
 # Problem #4: Playing a hand
