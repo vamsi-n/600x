@@ -53,7 +53,6 @@ def getFrequencyDict(sequence):
     for x in sequence:
         freq[x] = freq.get(x,0) + 1
     return freq
-	
 
 # (end of helper code)
 # -----------------------------------
@@ -207,7 +206,12 @@ def calculateHandlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
-    # TO DO... <-- Remove this comment when you code this function
+    total = 0
+
+    for i in hand.keys():
+        total += hand[i]
+
+    return total
 
 
 
