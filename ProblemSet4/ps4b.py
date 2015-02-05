@@ -2,6 +2,8 @@ from ps4a import *
 import time
 
 
+
+
 #
 #
 # Problem #6: Computer chooses a word
@@ -25,23 +27,28 @@ def compChooseWord(hand, wordList, n):
     """
     # BEGIN PSEUDOCODE <-- Remove this comment when you code this function; do your coding within the pseudocode (leaving those comments in-place!)
     # Create a new variable to store the maximum score seen so far (initially 0)
+    max_score = 0
 
     # Create a new variable to store the best word seen so far (initially None)  
+    best_word = None
 
     # For each word in the wordList
+    for currentWord in wordList:
 
         # If you can construct the word from your hand
+        if isValidWord(currentWord, hand, wordList):
         # (hint: you can use isValidWord, or - since you don't really need to test if the word is in the wordList - you can make a similar function that omits that test)
 
             # Find out how much making that word is worth
-
+            current_score = getWordScore(currentWord, HAND_SIZE)
             # If the score for that word is higher than your best score
-
+            if current_score > max_score:
                 # Update your best score, and best word accordingly
-
+                max_score = current_score
+                best_word = currentWord
 
     # return the best word you found.
-
+    return best_word
 
 #
 # Problem #7: Computer plays a hand
@@ -65,8 +72,15 @@ def compPlayHand(hand, wordList, n):
     wordList: list (string)
     n: integer (HAND_SIZE; i.e., hand size required for additional points)
     """
-    # TO DO ... <-- Remove this comment when you code this function
-    
+
+    chosen_word = ''
+
+
+    print 'Current hand: ',
+    displayHand(hand)
+    chosen_word = compChooseWord(hand, wordList, n)
+    print 'chosen_word : ' + chosen_word
+
 #
 # Problem #8: Playing a game
 #
@@ -104,6 +118,6 @@ def playGame(wordList):
 #
 if __name__ == '__main__':
     wordList = loadWords()
-    playGame(wordList)
-
+    #playGame(wordList)
+    compPlayHand({'a': 1, 'p': 2, 's': 1, 'e': 1, 'l': 1}, wordList, 6)
 
