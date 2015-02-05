@@ -74,13 +74,21 @@ def compPlayHand(hand, wordList, n):
     """
 
     chosen_word = ''
+    total_score = 0
 
+    while chosen_word is not None and calculateHandlen(hand) > 0:
+        print 'Current hand: ',
+        displayHand(hand)
+        chosen_word = compChooseWord(hand, wordList, n)
 
-    print 'Current hand: ',
-    displayHand(hand)
-    chosen_word = compChooseWord(hand, wordList, n)
-    print 'chosen_word : ' + chosen_word
+        if chosen_word is not None:
+            current_score = getWordScore(chosen_word, n)
+            total_score += current_score
+            print '"' + chosen_word + '" earned ' + str(current_score) + ' points. Total: ' + str(total_score) + ' points.'
 
+            hand = updateHand(hand, chosen_word)
+
+    print 'Total score: ' + str(total_score) + ' points.'
 #
 # Problem #8: Playing a game
 #
@@ -99,18 +107,55 @@ def playGame(wordList):
     3) Switch functionality based on the above choices:
         * If the user inputted 'n', play a new (random) hand.
         * Else, if the user inputted 'r', play the last hand again.
-      
+          But if no hand was played, output "You have not played a hand yet.
+          Please play a new hand first!"
+
         * If the user inputted 'u', let the user play the game
           with the selected hand, using playHand.
-        * If the user inputted 'c', let the computer play the 
+        * If the user inputted 'c', let the computer play the
           game with the selected hand, using compPlayHand.
 
     4) After the computer or user has played the hand, repeat from step 1
 
     wordList: list (string)
     """
-    # TO DO... <-- Remove this comment when you code this function
-    print "playGame not yet implemented." # <-- Remove this when you code this function
+    hand = {}
+    while True:
+        user_option = raw_input('Enter n to deal a new hand, r to replay the last hand, or e to end game: ')
+
+        if user_option == 'n':
+            hand = dealHand(HAND_SIZE)
+
+            while True:
+                user_or_computer = raw_input('Enter u to have yourself play, c to have the computer play: ')
+                if user_or_computer == 'u':
+                    playHand(hand, wordList, HAND_SIZE)
+                    break
+                elif user_or_computer == 'c':
+                    compPlayHand(hand, wordList, HAND_SIZE)
+                    break
+                else:
+                    print 'Invalid command.'
+        elif user_option == 'r':
+            if len(hand) == 0:
+                print 'You have not played a hand yet. Please play a new hand first!'
+            else:
+
+                while True:
+                    user_or_computer = raw_input('Enter u to have yourself play, c to have the computer play: ')
+                    if user_or_computer == 'u':
+                        playHand(hand, wordList, HAND_SIZE)
+                        break
+                    elif user_or_computer == 'c':
+                        compPlayHand(hand, wordList, HAND_SIZE)
+                        break
+                    else:
+                        print 'Invalid command.'
+
+        elif user_option == 'e':
+            break
+        else:
+            print 'Invalid command.'
 
         
 #
@@ -119,5 +164,4 @@ def playGame(wordList):
 if __name__ == '__main__':
     wordList = loadWords()
     #playGame(wordList)
-    compPlayHand({'a': 1, 'p': 2, 's': 1, 'e': 1, 'l': 1}, wordList, 6)
-
+    compPlayHand({'a': 2, 'c': 1, 'b': 1, 't': 1}, wordList, 5)
