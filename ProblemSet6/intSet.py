@@ -41,6 +41,8 @@ class intSet(object):
                 result.insert(x)
         return result
 
+    def __len__(self):
+        return len(self.vals)
 
 setA = intSet()
 setA.insert(1)
@@ -56,3 +58,4 @@ print setA
 print setB
 
 print setA.intersect(setB)
+print len(setA)
