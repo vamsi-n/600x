@@ -46,7 +46,28 @@ def process(url):
 
 # Problem 1
 
-# TODO: NewsStory
+class NewsStory(object):
+    def __init__(self, guid, title, subject, summary, link):
+        self.nsguid = guid
+        self.nstitle = title
+        self.nssubject = subject
+        self.nssummary = summary
+        self.nslink = link
+
+    def getGuid(self):
+        return self.nsguid
+
+    def getTitle(self):
+        return self.nstitle
+
+    def getSubject(self):
+        return self.nssubject
+
+    def getSummary(self):
+        return self.nssummary
+
+    def getLink(self):
+        return self.nslink
 
 #======================
 # Part 2
@@ -64,7 +85,45 @@ class Trigger(object):
 # Whole Word Triggers
 # Problems 2-5
 
-# TODO: WordTrigger
+class WordTrigger(Trigger):
+
+    def __init__(self, word):
+        self.word = str.lower(word)
+
+
+    def isWordIn(self, text):
+        text = str.lower(text)
+        text = ''.join(z for z in text if z not in string.punctuation)
+        words = text.split(' ')
+
+        if self.word in words:
+            return True
+        else:
+            return False
+
+    def evaluate(self, story):
+        """
+        Returns True if an alert should be generated
+        for the given news item, or False otherwise.
+        """
+        raise NotImplementedError
+
+
+class TitleTrigger(WordTrigger):
+
+    def evaluate(self, story):
+        return self.isWordIn(story.getTitle())
+
+
+class SubjectTrigger(WordTrigger):
+
+    def evaluate(self, story):
+        return self.isWordIn(story.getSubject())
+
+class SummaryTrigger(WordTrigger):
+
+    def evaluate(self, story):
+        return self.isWordIn(story.getSummary())
 
 # TODO: TitleTrigger
 # TODO: SubjectTrigger
@@ -81,6 +140,7 @@ class Trigger(object):
 
 # Phrase Trigger
 # Question 9
+
 
 # TODO: PhraseTrigger
 
